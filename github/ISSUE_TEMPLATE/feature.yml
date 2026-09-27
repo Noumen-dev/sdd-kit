@@ -1,0 +1,59 @@
+name: Фича (карточка + AC)
+description: Новая возможность. User Story и критерии WHEN/THEN/SHALL. После создания Issue slug = issue-{номер}.
+title: "[feat]: "
+labels: ["sdd", "feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        После сохранения этого Issue появится номер `{N}`. Дальше везде `issue-{N}`:
+
+        - карточка: `docs/requirements/cards/issue-3.md` (`status: active`, если Issue #3)
+        - ветка: `feat/issue-3`
+        - шаблон: [docs/_templates/card-ac.md](docs/_templates/card-ac.md)
+
+        PR только в `main`, не в `dev`.
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Стек / слой
+      options:
+        - factory
+        - orchestrator
+        - extension
+        - backend
+        - frontend
+        - docs
+    validations:
+      required: true
+  - type: textarea
+    id: story
+    attributes:
+      label: User Story
+      description: Как …, я хочу …, чтобы …
+      placeholder: Как инженер data-plane, я хочу находить пропуски баров, чтобы бэктест не шёл по дырявой истории
+    validations:
+      required: true
+  - type: textarea
+    id: ac
+    attributes:
+      label: Acceptance Criteria
+      description: Нумерация. Формат WHEN/THEN/SHALL или IF/THEN/SHALL.
+      value: |
+        1. WHEN … THEN система SHALL …
+        2. WHEN … THEN система SHALL …
+        3. IF … THEN система SHALL …
+    validations:
+      required: true
+  - type: input
+    id: contracts
+    attributes:
+      label: Контракты (если уже есть)
+      description: Пути относительно docs/contracts/ или «нет»
+      placeholder: нет
+  - type: input
+    id: adr
+    attributes:
+      label: ADR (если уже есть)
+      description: Пути относительно docs/adr/ или «нет»
+      placeholder: нет

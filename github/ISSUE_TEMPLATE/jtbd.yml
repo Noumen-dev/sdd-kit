@@ -1,0 +1,52 @@
+name: Идея (JTBD)
+description: Боль или работа, которую «нанимают» сделать. Ещё не карточка с AC.
+title: "[jtbd]: "
+labels: ["sdd", "jtbd"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        После сохранения Issue появится номер `{N}`. Файл: `docs/ideas/issue-{N}.md`
+        по шаблону [docs/_templates/jtbd.md](docs/_templates/jtbd.md).
+        Процесс: [docs/SDD_WORKFLOW.md](docs/SDD_WORKFLOW.md).
+  - type: textarea
+    id: when
+    attributes:
+      label: Когда…
+      description: Ситуация / триггер
+      placeholder: Открыл график и вижу дыру в барах
+    validations:
+      required: true
+  - type: textarea
+    id: want
+    attributes:
+      label: Я хочу…
+      description: Мотивация
+      placeholder: автоматически найти и закрыть пропуски
+    validations:
+      required: true
+  - type: textarea
+    id: so_that
+    attributes:
+      label: Чтобы…
+      description: Ожидаемый исход
+      placeholder: не чинить историю руками перед бэктестом
+    validations:
+      required: true
+  - type: dropdown
+    id: channel
+    attributes:
+      label: Канал
+      options:
+        - extension
+        - api
+        - mt5
+        - web
+        - другое
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Контекст
+      description: Персона, связанные задачи, ссылки на docs/01–14 если есть

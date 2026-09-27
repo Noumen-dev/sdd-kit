@@ -1,58 +1,51 @@
-# AGENTS.md
+# Инструкции для агента (sdd-kit)
 
-## About Spec Kit and Specify
+Репозиторий / consumer ведётся **spec-driven (SDD)**. Сначала карточка в Git, потом код.
 
-**GitHub Spec Kit** is a comprehensive toolkit for implementing Spec-Driven Development (SDD) - a methodology that emphasizes creating clear specifications before implementation. The toolkit includes templates, scripts, and workflows that guide development teams through a structured approach to building software.
+Люди: [CONTRIBUTING.md](CONTRIBUTING.md). Процесс: [docs/SDD_WORKFLOW.md](docs/SDD_WORKFLOW.md).  
+Эталоны: [docs/_templates/](docs/_templates/). Skill: `.cursor/skills/sdd-workflow/SKILL.md`.
 
-**Specify CLI** is the command-line interface that bootstraps projects with the Spec Kit framework. It sets up the necessary directory structures, templates, and AI agent integrations to support the Spec-Driven Development workflow.
+Отвечай **по-русски**. Комментарии и docs — **на русском**. Python: **Google docstring**.
 
-The toolkit supports multiple AI coding assistants, allowing teams to use their preferred tools while maintaining consistent project structure and development practices.
+## Жёсткие запреты
 
-## Adding or Updating CLI Commands
+- Не коммитить и не пушить, пока пользователь явно не попросил.
+- Не менять `tests/approved/` без одновременной смены карточки и/или контракта.
+- Не переписывать продуктовые спеки репо на карточки задним числом.
+- Не merge в protected автоматически (A/H: человек).
+- Не писать код фичи без карточки с AC (исключение: точечный фикс с AC в том же PR).
+- Не менять статус карточки через `git mv` — только `status` во frontmatter.
+- Целевая ветка PR по умолчанию — `main`. Draft PR в `dev` — только если Project/владелец явно разрешил; **merge** в `dev`/`main` агенту запрещён.
 
-Before adding, updating, or reorganizing Specify CLI commands, read
-[Specify CLI Command Architecture](design/cli.md). It defines command-module
-naming, private command phases, nested command groups, registration ownership,
-mirrored tests, and the rationale for making the CLI structure predictable for
-both humans and coding agents.
+## Два слоя docs
 
-## Adding or Updating Agent Integrations
+| Слой | Где | Правило |
+|------|-----|---------|
+| Продуктовые спеки | `docs/` продукта (архитектура, RACI, …) | Читать как контур, не резать на карточки задним числом |
+| Позадачный SDD | `docs/ideas`, `docs/requirements/cards`, `docs/contracts`, `docs/adr`, `tests/*` | Новая работа только так |
 
-Before adding or changing AI agent integrations, read
-[Agent Integration Design](design/integration.md). It covers
-delivery routes, output formats, registration, and install/uninstall ownership.
+## Карта артефактов
 
-## Adding or Updating Workflow Steps
+| Что | Куда | Шаблон |
+|-----|------|--------|
+| JTBD | `docs/ideas/issue-{N}.md` | `docs/_templates/jtbd.md` |
+| Epic (tier L) | `docs/requirements/cards/issue-{E}.md` (`kind: epic`) | `docs/_templates/epic.md` |
+| Design / C4 | `docs/design/issue-{E}.md` | `docs/_templates/design-c4.md` |
+| Карточка + AC | `docs/requirements/cards/issue-{N}.md` | `docs/_templates/card-ac.md` |
+| Реестр | `docs/requirements/registry.yaml` | — |
+| Контракт | `docs/contracts/issue-{N}.md` | `docs/_templates/contract.md` |
+| ADR | `docs/adr/{nnn}-issue-{N}.md` | `docs/_templates/adr.md` |
+| Тесты-черновик | `tests/generated/issue-{N}.md` | → approved |
+| Тесты-контракт | `tests/approved/issue-{N}.md` | `docs/_templates/tests-approved.md` |
+| Ревью | `docs/requirements/review/issue-{N}.review.md` | `docs/_templates/review.md` |
+| Finding | `docs/requirements/review/issue-{N}.findings.md` | `docs/_templates/finding.md` |
 
-Before adding or changing workflow step types, read
-[Workflow Step Design](design/workflow-step.md). It covers registration,
-validation, execution, resume, and installed step packages.
+Статус: `active` \| `review` \| `accepted` \| `cancelled`.
 
-## Testing Executable Behavior
+AC: `WHEN … THEN система SHALL …` или `IF … THEN система SHALL …`.
 
-Before changing code or configuration that runs or controls execution without
-an LLM, read
-[Testing deterministic behavior](CONTRIBUTING.md#testing-deterministic-behavior).
-Behavioral changes need positive and negative coverage; bug fixes need
-before-and-after regression evidence.
+## Git и slug
 
-## Branches and Agent Contributions
+`task_slug` = `issue-{N}` (номер **GitHub Issue**). Не выдумывать словесный slug.
 
-When creating a branch, follow [Branch naming](CONTRIBUTING.md#branch-naming).
-Before authoring commits, opening PRs, or posting review comments, read
-[Agent-authored Git and review activity](CONTRIBUTING.md#agent-authored-git-and-review-activity).
-Agent-authored commits and AI-generated PRs and comments each require their
-own disclosure; a PR-body disclosure alone does not cover later activity.
-
-## Other Contribution Guidance
-
-For contribution or repository-workflow questions not covered above, or when
-the applicable guidance is unclear, read [CONTRIBUTING.md](CONTRIBUTING.md)
-before acting.
-
-## Common Pitfalls
-
-- **Running tests against the wrong environment:** Run the suite inside this
-  worktree's own virtualenv (`uv sync --extra test` then
-  `.venv/bin/python -m pytest`). A bare `uv run pytest` can pick up an
-  editable install from another worktree and fail to import new subpackages.
+Issue → карточка `cards/issue-{N}.md` → ветка `{type}/issue-{N}` → PR (обычно в `main`).

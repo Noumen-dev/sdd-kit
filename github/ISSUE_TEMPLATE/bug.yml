@@ -1,0 +1,48 @@
+name: Баг
+description: Некорректное поведение относительно спеки или AC. После Issue — карточка и ветка fix/issue-{N}.
+title: "[fix]: "
+labels: ["sdd", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        После сохранения Issue номер `{N}` станет `task_slug`: `issue-3`, ветка `fix/issue-3`.
+        PR только в `main`, не в `dev`. Если баг закрывает дыру в AC — обновите карточку в том же PR.
+  - type: textarea
+    id: actual
+    attributes:
+      label: Что происходит
+      placeholder: Повторный прогон графа плодит дубли баров
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ожидаемое поведение
+      placeholder: Upsert по (symbol_id, timeframe, time) не создаёт вторую строку
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Как воспроизвести
+      placeholder: |
+        1. Поднять docker-compose.trading-db.yml
+        2. Прогнать smoke_offline_pipeline.py дважды
+        3. SELECT count(*) …
+    validations:
+      required: true
+  - type: textarea
+    id: ac
+    attributes:
+      label: AC на фикс
+      description: Критерий готовности фикса. WHEN/THEN/SHALL.
+      value: |
+        1. WHEN … THEN система SHALL …
+    validations:
+      required: true
+  - type: input
+    id: spec_ref
+    attributes:
+      label: Связанная карточка или продуктовая спека
+      description: docs/requirements/cards/issue-N.md или docs/01_requirements.md §N
