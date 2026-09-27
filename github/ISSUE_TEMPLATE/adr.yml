@@ -1,0 +1,59 @@
+name: ADR
+description: Архитектурное решение. Файл docs/adr/{nnn}-issue-{N}.md, утверждает техлид (A/H).
+title: "[docs]: ADR "
+labels: ["sdd", "adr"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        После сохранения Issue появится `{N}`. Итог: `docs/adr/{nnn}-issue-{N}.md`
+        по [шаблону](docs/_templates/adr.md). Ветка: `docs/issue-{N}`. Merge в `main` — человек.
+  - type: input
+    id: nnn
+    attributes:
+      label: Номер ADR
+      placeholder: "001"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Какая проблема и какие ограничения
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: Что решили делать
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: Что отвергли и почему
+      value: |
+        - …
+    validations:
+      required: true
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences
+      value: |
+        - + …
+        - − …
+    validations:
+      required: true
+  - type: textarea
+    id: bounds
+    attributes:
+      label: Bounds
+      description: Где решение действует, а где нужен отдельный ADR
+  - type: input
+    id: links
+    attributes:
+      label: Связанная карточка / контракт
+      placeholder: docs/requirements/cards/issue-3.md
