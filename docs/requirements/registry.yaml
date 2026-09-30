@@ -1,3 +1,2 @@
-# Реестр карточек (проекция).
-# SoT статуса — frontmatter в cards/issue-{N}.md.
+# Проекция карточек. SoT статуса — frontmatter cards/issue-{N}.md
 cards: []

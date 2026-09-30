@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         После сохранения Issue номер `{N}` станет `task_slug`: `issue-3`, ветка `fix/issue-3`.
-        PR только в `main`, не в `dev`. Если баг закрывает дыру в AC — обновите карточку в том же PR.
+        PR в `main` (прод, приоритетнее `dev`). Вливание в защищённую ветку — человек. Если баг закрывает дыру в AC — обновите карточку в том же PR.
   - type: textarea
     id: actual
     attributes:

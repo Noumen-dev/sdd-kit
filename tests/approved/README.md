@@ -1,4 +1,5 @@
-# approved
+# Утверждённые тест-контракты
 
-Шаблон: [`docs/_templates/tests-approved.md`](../../docs/_templates/tests-approved.md).
-Менять только вместе со спекой/контрактом.
+Файлы `issue-{N}.md`. Менять только вместе со сменой карточки и/или контракта.
+
+Шаблон: [docs/_templates/tests-approved.md](../../docs/_templates/tests-approved.md).

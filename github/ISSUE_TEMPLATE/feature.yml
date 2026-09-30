@@ -12,7 +12,7 @@ body:
         - ветка: `feat/issue-3`
         - шаблон: [docs/_templates/card-ac.md](docs/_templates/card-ac.md)
 
-        PR только в `main`, не в `dev`.
+        PR в `main` (прод, приоритетнее `dev`). Вливание в защищённую ветку — человек, не имя `dev`.
   - type: dropdown
     id: stack
     attributes:

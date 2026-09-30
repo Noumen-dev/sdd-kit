@@ -1,5 +1,6 @@
-# Проверка заголовка PR (Conventional Commits) и запрет base=dev (политика по умолчанию).
-# Consumer может ослабить forbid-dev через Project override — тогда удалите/измените job.
+# Проверка заголовка PR (Conventional Commits).
+# Имя базы dev не запрещено: защита — любая protected-ветка. Прод — main.
+# Локальных git-hooks нет: разработчик проходит эти правила на GitHub.
 name: pr-governance
 
 on:
@@ -13,13 +14,8 @@ jobs:
     permissions:
       pull-requests: read
     steps:
-      - name: Forbid base branch dev
-        run: |
-          if [ "${{ github.base_ref }}" = "dev" ]; then
-            echo "::error::PR в ветку dev запрещён политикой sdd-kit (по умолчанию). Откройте PR в main или ослабьте workflow в consumer."
-            exit 1
-          fi
-          echo "base=${{ github.base_ref }} — ok"
+      - name: Record PR base
+        run: echo "base=${{ github.base_ref }} — имя ветки само по себе не ошибка"
 
       - name: Conventional Commits PR title
         uses: amannn/action-semantic-pull-request@v5.5.3

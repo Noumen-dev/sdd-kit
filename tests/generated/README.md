@@ -1,3 +1,6 @@
-# generated
+# Черновики тестов
 
-Черновики `issue-{N}.md` → после QA в `tests/approved/`.
+Сюда кладём `issue-{N}.md` до утверждения QA.
+После спек/тест-феста перенос в `tests/approved/` — только вместе со сменой карточки/контракта.
+
+Шаблон утверждённых: [docs/_templates/tests-approved.md](../../docs/_templates/tests-approved.md).
