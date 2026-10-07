@@ -23,7 +23,7 @@
 ### Acceptance Criteria
 
 1. WHEN открывается Issue THEN GitHub SHALL предложить типы: идея (JTBD), фича (карточка+AC), баг, ADR.
-2. WHEN открывается Pull Request THEN шаблон SHALL требовать ссылку на карточку, чек-лист AC и запрет менять `tests/approved` без смены спеки.
+2. WHEN открывается Pull Request THEN шаблон SHALL требовать ссылку на карточку, чек-лист AC и запрет менять тест-кейс со `status: approved` без смены спеки.
 3. WHEN человек заходит в репозиторий THEN README SHALL ссылаться на CONTRIBUTING и карту артефактов.
 4. WHEN создаётся PR THEN GitHub SHALL показать ссылку на CONTRIBUTING (файл в корне).
 
@@ -33,11 +33,11 @@
 
 ### Acceptance Criteria
 
-1. WHEN клонируется репо THEN SHALL существовать `docs/ideas`, `docs/requirements/cards`, `docs/requirements/review`, `docs/contracts`, `docs/adr`, `tests/generated`, `tests/approved`.
+1. WHEN клонируется репо THEN SHALL существовать `docs/ideas`, `docs/requirements/cards`, `docs/requirements/review`, `docs/contracts`, `docs/adr`, `tests/cases` (README); `tests/generated` и `tests/approved` MAY оставаться как deprecated указатели / compat.
 2. WHEN копируется шаблон THEN структура SHALL совпадать с эталонами (frontmatter + `status` + User Story + WHEN/THEN/SHALL).
 3. WHEN читается процесс THEN SHALL быть ясно: продуктовые спеки — отдельно; позадачные карточки — в `docs/requirements/cards/`.
-4. IF меняется `tests/approved` THEN это SHALL быть только вместе со сменой карточки/контракта.
-5. WHEN меняется статус карточки THEN SHALL обновляться поле `status` во frontmatter (путь файла стабилен; без `git mv` ради статуса).
+4. IF меняется тест-кейс со `status: approved` THEN это SHALL быть только вместе со сменой карточки/контракта.
+5. WHEN меняется статус карточки или тест-кейса THEN SHALL обновляться поле `status` во frontmatter (путь файла стабилен; без `git mv` ради статуса).
 
 ## Requirement 3 — Защищённая ветка + Conventional Commits
 
@@ -81,7 +81,7 @@ C4Context
     Rel(analyst, git, "карточка в cards/")
     Rel(dev, git, "ветка type/issue-N")
     Rel(dev, gh, "PR в main")
-    Rel(qa, git, "tests/approved review.md")
+    Rel(qa, git, "tests/cases status + review.md")
     Rel(tl, gh, "merge в main")
     Rel(gh, git, "checks")
 ```
@@ -91,7 +91,7 @@ flowchart TB
   JTBD[docs/ideas]
   Card["cards/issue-N.md\nstatus: active"]
   SpecFest[спек-фест QA]
-  Tests[tests/generated затем approved]
+  Tests["tests/cases\nstatus: draft→approved"]
   Code[код в ветке]
   PR[PR в main]
   ReviewFile["review/issue-N.review.md"]
@@ -115,7 +115,7 @@ Tier **L** (эпик), обратная связь implementation → design, п
 | Карточка + AC | Analyst | QA (спек-фест) | При споре по AC |
 | Контракт | Analyst / Architect | Architect | Нет, кроме спорного API |
 | ADR | Architect | Architect + техлид | Да (A/H) |
-| tests/approved | QA | QA | При смене контракта тестов |
+| tests/cases (`status: approved`) | QA | QA | При смене контракта тестов |
 | Код | Dev | техлид (merge) | Merge в `main` — A/H |
 | review.md | QA | техлид | Merge — A/H |
 
@@ -136,8 +136,7 @@ Tier **L** (эпик), обратная связь implementation → design, п
 | Реестр (проекция) | `docs/requirements/registry.yaml` | — | Analyst / CI |
 | Контракт | `docs/contracts/issue-{N}.md` | [_templates/contract.md](_templates/contract.md) | Analyst / Architect |
 | ADR | `docs/adr/{nnn}-issue-{N}.md` | [_templates/adr.md](_templates/adr.md) | Architect / Dev |
-| Тесты generated | `tests/generated/issue-{N}.md` | черновик из спеки | Dev / генератор |
-| Тесты approved | `tests/approved/issue-{N}.md` | [_templates/tests-approved.md](_templates/tests-approved.md) | QA утверждает |
+| Тест-кейс | `tests/cases/issue-{N}.md` | [_templates/tests-case.md](_templates/tests-case.md) | Dev пишет (`draft`); QA → `approved` |
 | Отчёт ревью | `docs/requirements/review/issue-{N}.review.md` | [_templates/review.md](_templates/review.md) | QA |
 | Finding (L2/L3) | `docs/requirements/review/issue-{N}.findings.md` | [_templates/finding.md](_templates/finding.md) | Dev / Architect |
 
@@ -149,6 +148,15 @@ Tier L + обратная связь: [sdd-tier-epic-feedback.md](sdd-tier-epic-
 2. `status: review` — спек-фест / код-ревью; рядом `review/issue-{N}.review.md`.
 3. `status: accepted` — вердикт `approve`.
 4. `status: cancelled` — сняли со скоупа.
+
+Статус тест-кейса (`tests/cases/issue-{N}.md`) — тоже **frontmatter** (путь стабилен):
+
+1. `status: draft` — черновик Dev / генератор.
+2. `status: review` — тест-фест / сверка с AC.
+3. `status: approved` — замороженный контракт (менять только вместе со спекой).
+4. `status: cancelled` — снято.
+
+Папки `tests/generated/` и `tests/approved/` — deprecated; опциональная publish-проекция в `tests/approved/` — один релиз (`scripts/publish-approved-projection.sh`).
 
 Опционально синхронизировать [`registry.yaml`](requirements/registry.yaml). При конфликте побеждает frontmatter карточки.
 
@@ -208,7 +216,7 @@ docs: карточка issue-3 status active
 2. Карточка в `docs/requirements/cards/issue-{N}.md` (`status: active`) с User Story и AC в формате WHEN/THEN/SHALL.
 3. При необходимости: контракт `docs/contracts/issue-{N}.md` и/или ADR, ссылки во frontmatter.
 4. Спек-фест: QA смотрит полноту AC (happy path, ошибки, границы). Не ок → правка карточки.
-5. Черновик тестов в `tests/generated/issue-{N}.md`; QA переносит в `tests/approved/` (менять approved только вместе со спекой).
+5. Тест-кейс в `tests/cases/issue-{N}.md` (`status: draft`); QA утверждает сменой на `status: approved` **без** `git mv` (менять `approved` только вместе со спекой).
 6. Ветка `{type}/issue-{N}`, код, прогон тестов/smoke.
 7. В карточке `status: review` (файл не переносим); обновить `registry.yaml` по желанию.
 8. PR в `main` (прод; приоритетнее `dev`), заголовок Conventional Commits, заполненный шаблон PR, ссылка на Issue #{N}.

@@ -12,7 +12,8 @@
 | [card-ac.md](card-ac.md) | `docs/requirements/cards/issue-{N}.md` (`status` во frontmatter) |
 | [contract.md](contract.md) | `docs/contracts/issue-{N}.md` |
 | [adr.md](adr.md) | `docs/adr/{nnn}-issue-{N}.md` |
-| [tests-approved.md](tests-approved.md) | `tests/approved/issue-{N}.md` (черновик — `tests/generated/`) |
+| [tests-case.md](tests-case.md) | `tests/cases/issue-{N}.md` (`status: draft\|review\|approved\|cancelled`) |
+| [tests-approved.md](tests-approved.md) | **deprecated** → см. `tests-case.md` |
 | [review.md](review.md) | `docs/requirements/review/issue-{N}.review.md` |
 | [finding.md](finding.md) | `docs/requirements/review/issue-{N}.findings.md` |
 

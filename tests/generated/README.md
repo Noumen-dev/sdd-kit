@@ -1,6 +1,7 @@
-# Черновики тестов
+# Deprecated: `tests/generated/`
 
-Сюда кладём `issue-{N}.md` до утверждения QA.
-После спек/тест-феста перенос в `tests/approved/` — только вместе со сменой карточки/контракта.
+**Не использовать для новых кейсов.** Канон: [`tests/cases/`](../cases/README.md) + frontmatter `status: draft|review|approved|cancelled`.
 
-Шаблон утверждённых: [docs/_templates/tests-approved.md](../../docs/_templates/tests-approved.md).
+Раньше сюда клали черновики до переноса в `tests/approved/`. Теперь путь стабилен, статус — во frontmatter.
+
+Шаблон: [docs/_templates/tests-case.md](../../docs/_templates/tests-case.md).

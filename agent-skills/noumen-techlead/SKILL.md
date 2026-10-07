@@ -102,7 +102,7 @@ git и проверки CI — одна команда за вызов, не в�
 ## Запреты
 
 - Не писать фичу вместо Dev без карточки/AC.
-- Не утверждать спеку за QA; не молча менять `tests/approved/`.
+- Не утверждать спеку за QA; не молча менять тест-кейс со `status: approved`.
 - Не игнорировать A/H человека на protected merge.
 - Не использовать `LIVE_MARKER` mock skills.
 - Остальное (ветки, merge, slug) — [`sdd-workflow`](../../.cursor/skills/sdd-workflow/SKILL.md).

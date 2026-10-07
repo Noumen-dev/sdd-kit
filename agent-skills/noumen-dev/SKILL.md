@@ -3,7 +3,7 @@ name: noumen-dev
 description: >-
   Dev-агент роя Noumen/Fragmenta: код и тесты по одобренной карточке issue-N;
   следует sdd-kit. Use when спека после QA approve, нужен черновик кода/unit/smoke,
-  tests/generated, или вызов /noumen-dev.
+  tests/cases, или вызов /noumen-dev.
 license: MIT
 compatibility: >-
   Agent Skills (agentskills.io): Cursor `.cursor/skills/<name>/` и library
@@ -60,10 +60,10 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 
 | | |
 |--|--|
-| **Owns (R)** | код, `tests/generated/`, ветка / PR draft |
+| **Owns (R)** | код, `tests/cases/` (`status: draft\|review`), ветка / PR draft |
 | **Читает** | card + contract + ADR после QA approve |
 | **Handoff** | → QA после AC-ready diff |
-| **Не трогает** | `tests/approved`, AC с нуля, merge |
+| **Не трогает** | `status: approved` у тест-кейса, AC с нуля, merge |
 
 ## Входы / выходы
 
@@ -72,7 +72,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 | Карточка `issue-{N}` + AC (после QA) | Код в ветке `{type}/issue-{N}` от `main` |
 | Контракт / ADR | Реализация в границах контракта |
 | Замечания QA | Исправленный diff + отчёт прогона |
-| — | `tests/generated/issue-{N}.md` |
+| — | `tests/cases/issue-{N}.md` (`status: draft`) |
 
 ## Чеклист
 
@@ -80,7 +80,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 2. Ветка от `main` по `sdd-workflow`; PR в `main`.
 3. Строго по AC; комментарии/docs — русский; Python — Google docstring.
 4. Unit/smoke; результат для QA.
-5. Черновик → `tests/generated/`; **не** трогать `tests/approved/`.
+5. Черновик → `tests/cases/` со `status: draft`; **не** ставить `status: approved` сам.
 6. Передать QA; не само-merge.
 
 ## Tools / MCP
@@ -101,7 +101,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 
 ## Запреты
 
-- Не менять `tests/approved/` и не ставить `qa-approved`.
+- Не менять тест-кейс со `status: approved` и не ставить `qa-approved`.
 - Не писать AC с нуля вместо Analyst.
 - Не обходить карточку для новой фичи.
 - Не использовать `LIVE_MARKER` mock skills.

@@ -27,7 +27,7 @@
 |----|-----------|
 | `noumen-analyst` | Карточка `issue-{N}` и AC |
 | `noumen-architect` | Design, контракт, ADR, карта Archify |
-| `noumen-dev` | Код и `tests/generated` |
+| `noumen-dev` | Код и `tests/cases` (`draft`) |
 | `noumen-qa` | Спек-фест, review, web E2E |
 | `noumen-techlead` | Эскалация и merge в protected |
 | `archify` | Картинка к design; зовёт Architect |

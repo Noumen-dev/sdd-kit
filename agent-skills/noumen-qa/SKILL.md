@@ -61,7 +61,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 
 | | |
 |--|--|
-| **Owns (R/A)** | `docs/requirements/review/*.review.md`; promote generated→approved (+спека); playwright |
+| **Owns (R/A)** | `docs/requirements/review/*.review.md`; `tests/cases` → `status: approved` (+спека); playwright |
 | **Читает** | cards, diff, contracts |
 | **Handoff** | approve → Dev / `accepted`; reject → Analyst |
 | **Не трогает** | прод-фича, merge |
@@ -72,7 +72,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 |------|--------|
 | Карточка ready_for_review | Спек-фест: approve → в код; reject + чек-лист |
 | Diff Dev + отчёт тестов + AC | `docs/requirements/review/issue-{N}.review.md` |
-| `tests/generated/` | При согласовании — `tests/approved/issue-{N}.md` |
+| `tests/cases/` (`draft`/`review`) | При согласовании — тот же файл, `status: approved` |
 | UI-сценарий | Результат playwright (pass/fail + шаги) |
 
 ## Чеклист спек-феста
@@ -88,7 +88,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 1. Diff ↔ каждый AC.
 2. Смоук/unit заявлены правдоподобно.
 3. Web: playwright по критичным AC (если UI).
-4. `tests/approved/` не менять без смены карточки/контракта.
+4. `status: approved` у тест-кейса не менять без смены карточки/контракта.
 5. Записать `review.md`; спор → escalate TechLead.
 
 ## Tools / MCP

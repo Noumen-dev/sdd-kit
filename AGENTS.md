@@ -10,7 +10,7 @@
 
 - Не вливать в защищённую ветку. Защита — не имя `dev`. Прод здесь — `main`, она приоритетнее `dev`. PR в `main`. Вливает человек.
 - Не коммитить и не пушить, пока пользователь явно не попросил.
-- Не менять `tests/approved/` без одновременной смены карточки и/или контракта.
+- Не менять тест-кейс со `status: approved` без одновременной смены карточки и/или контракта.
 - Не переписывать продуктовые спеки на карточки задним числом.
 - Не merge в `main` автоматически (A/H: человек).
 - Не писать код фичи без карточки с AC (исключение: явно запрошенный точечный фикс с AC в том же PR).
@@ -34,12 +34,12 @@
 | Реестр (проекция) | `docs/requirements/registry.yaml` | — |
 | Контракт | `docs/contracts/issue-{N}.md` | `docs/_templates/contract.md` |
 | ADR | `docs/adr/{nnn}-issue-{N}.md` | `docs/_templates/adr.md` |
-| Тесты-черновик | `tests/generated/issue-{N}.md` | → потом approved |
-| Тесты-контракт | `tests/approved/issue-{N}.md` | `docs/_templates/tests-approved.md` |
+| Тест-кейс | `tests/cases/issue-{N}.md` | `docs/_templates/tests-case.md` (`status: draft\|review\|approved\|cancelled`) |
 | Ревью | `docs/requirements/review/issue-{N}.review.md` | `docs/_templates/review.md` |
 | Finding | `docs/requirements/review/issue-{N}.findings.md` | `docs/_templates/finding.md` |
 
 Статус карточки — **frontmatter** `status: active | review | accepted | cancelled`. Путь `cards/issue-{N}.md` стабилен. Опционально обновить `registry.yaml`.
+Статус тест-кейса — **frontmatter** `status: draft | review | approved | cancelled`. Путь `tests/cases/issue-{N}.md` стабилен (без `git mv`).
 
 AC писать так: `WHEN … THEN система SHALL …` или `IF … THEN система SHALL …`.
 
