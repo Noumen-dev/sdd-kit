@@ -10,7 +10,7 @@
 
 - Не вливаем сами в защищённую ветку. Защита — не имя `dev`. Прод — `main`, он приоритетнее `dev`.
 - Не открываем Pull Request с базой `dev`. Целевая ветка — **`main`**.
-- Не меняем `tests/approved/` без одновременной смены карточки и/или контракта.
+- Не меняем тест-кейс со `status: approved` без одновременной смены карточки и/или контракта.
 - Не переписываем продуктовые спеки «на карточки» задним числом. Новая работа — позадачный SDD.
 - Не двигаем карточку `git mv` ради смены статуса — только `status` во frontmatter.
 
@@ -20,7 +20,7 @@
 2. Карточка: `docs/requirements/cards/issue-{N}.md` (`status: active`, User Story + AC WHEN/THEN/SHALL).
 3. При необходимости контракт (`docs/contracts/issue-{N}.md`) и ADR, ссылки во frontmatter.
 4. Спек-фест: полнота AC (happy path, ошибки, границы).
-5. Черновик тестов → `tests/generated/issue-{N}.md`; QA утверждает → `tests/approved/`.
+5. Тест-кейс → `tests/cases/issue-{N}.md` (`status: draft`); QA утверждает → `status: approved` (без `git mv`).
 6. Ветка `{type}/issue-{N}`, код, прогон тестов/smoke.
 7. В карточке `status: review` (путь тот же).
 8. PR/MR **в `main`**, заголовок Conventional Commits, заполненный шаблон.
@@ -57,7 +57,7 @@ docs: карточка issue-3 status active
 - [ ] База PR — `main`, не `dev`
 - [ ] Есть карточка `docs/requirements/cards/issue-{N}.md` (N = номер Issue)
 - [ ] AC покрыты кодом и/или тестами
-- [ ] `tests/approved/` не менялся **или** менялся вместе со спекой
+- [ ] тест-кейс со `status: approved` не менялся **или** менялся вместе со спекой
 - [ ] Прогнаны релевантные smoke/unit репозитория
 - [ ] Если нужен ADR/контракт — файлы и ссылки в карточке на месте
 

@@ -60,7 +60,7 @@ docs: карточка issue-3 status active
 ## После кода
 
 1. Прогнать релевантный smoke/unit ([docs/07_acceptance.md](../../../docs/07_acceptance.md)).
-2. Черновик кейсов — `tests/generated/issue-{N}.md`. В `tests/approved/` — только вместе со спекой.
+2. Тест-кейс — `tests/cases/issue-{N}.md` (`status: draft`). Смена на `status: approved` — только вместе со спекой (без `git mv`).
 3. В карточке выставить `status: review` (путь `cards/` не менять); при желании обновить `registry.yaml`.
 4. PR **в `main`**, шаблон `.github/pull_request_template.md`, в теле ссылка на Issue #{N}.
 5. Ревьюер пишет `docs/requirements/review/issue-{N}.review.md` (`approve` | `changes_requested` | `blocked`).

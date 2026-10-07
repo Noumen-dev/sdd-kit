@@ -63,7 +63,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 | **Owns (R)** | `docs/ideas/`, `docs/requirements/cards/` + AC WHEN/THEN/SHALL |
 | **Читает** | шаблоны card-ac/jtbd, REJECT QA |
 | **Handoff** | → QA спек-фест; tier L → Architect (`parent` / `design_ref`) |
-| **Не трогает** | `src/`, `tests/approved`, merge, design без запроса |
+| **Не трогает** | `src/`, тест-кейс `status: approved`, merge, design без запроса |
 
 ## Входы / выходы
 
@@ -103,7 +103,7 @@ Portable roles (`noumen-*`, `archify`, `_shared`) ставятся из `vendor/
 
 - Не писать прод-код / не реализовывать фичу в `src/`.
 - Не ставить `qa-approved` / `accepted` за QA.
-- Не менять `tests/approved/`.
+- Не менять тест-кейс со `status: approved`.
 - Не переписывать продуктовые спеки (`raci-agents-7d.md` и др.) под карточку.
 - Не использовать `LIVE_MARKER` из mock live skills.
 - Остальное (ветки, merge, slug) — [`sdd-workflow`](../../.cursor/skills/sdd-workflow/SKILL.md).

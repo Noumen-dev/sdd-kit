@@ -5,7 +5,7 @@
 Источник истины процесса: этот репозиторий.  
 Продуктовые спеки (`raci-agents-7d`, C4 продукта, `src/`) **не** входят в кит.
 
-Версия: см. [`VERSION`](VERSION).
+Версия: см. [`VERSION`](VERSION) (`0.3.0` — канон `tests/cases` + frontmatter `status`; `generated`/`approved` deprecated).
 
 ## С чего начать / что иметь
 

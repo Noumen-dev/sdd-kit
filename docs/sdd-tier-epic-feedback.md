@@ -37,7 +37,7 @@
 2. WHEN расхождение **граничное** (меняется контейнер, sibling, scope) THEN Dev/Architect SHALL создать `issue-{N}.findings.md` с verdict pending
 3. WHEN verdict `revise_parent` THEN Architect A/H SHALL обновить design/epic с changelog (`rev 2`) и при необходимости ADR `supersedes`
 4. WHEN verdict `new_child` THEN Product/Architect SHALL завести новый Issue + child-карточку, не раздувая текущую
-5. IF меняется `tests/approved` THEN это SHALL быть **связанная транзакция** со спекой/контрактом
+5. IF меняется тест-кейс со `status: approved` THEN это SHALL быть **связанная транзакция** со спекой/контрактом
 6. WHEN агент обнаружил расхождение THEN он SHALL **не** переписывать epic/design сам — только finding + ESCALATE
 
 #### Классы расхождений
@@ -70,7 +70,7 @@ flowchart TB
     CARD["Карточка + AC\nactive"]
     QA_SPEC{{"QA.gate\nспек-фест"}}
     CTR["Контракт / ADR"]
-    TGEN["tests/generated"]
+    TGEN["tests/cases\nstatus: draft"]
     TAPR{{"QA.gate\nтест-фест"}}
     DEV["Dev.execute\nкод + прогон"]
     QA_REV{{"QA.gate\nreview.md"}}
